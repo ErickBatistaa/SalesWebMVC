@@ -8,16 +8,24 @@ namespace SalesWebMVC.Models
     public class Seller
     {
         public int Id { get; set; }
+
+        [Required(ErrorMessage = "{0} required")] // personaliza a obrigatoriedade da inserção do nome no campo
+        [StringLength(60, MinimumLength = 3, ErrorMessage = "O tamanho do {0} deve ser entre {2} e {1}")] //limita o tamanho minimo e maximo da palavra
         public string Name { get; set; }
 
-        [DataType(DataType.EmailAddress)] //inserindo um link em cada email para já direcionar algum email usando algum app de email que deseja
+        [Required(ErrorMessage = "{0} required")]
+        [EmailAddress(ErrorMessage = "Entre com um email valido")]
+        [DataType(DataType.EmailAddress)] //inserindo um  link em cada email para já direcionar algum email usando algum app de email que deseja
         public string Email { get; set; }
 
+        [Required(ErrorMessage = "{0} required")]
         [Display(Name = "Birth Date")] //customizando o titulo da data de nascimento do vendedor
         [DataType(DataType.Date)] //retirando o campo de horário e deixando apenas o campo de data no formulário
         [DisplayFormat(DataFormatString ="{0:dd/MM/yyyy}")] //inserindo o formato da data desse campo
         public DateTime BirthDate { get; set; }
 
+        [Required(ErrorMessage = "{0} required")]
+        [Range(100.0, 50000.0, ErrorMessage = "{0} deve ser entre {1} e {2}")]
         [Display(Name = "Base Salary")]
         [DisplayFormat(DataFormatString ="{0:F2}")] //inclui 2 casas decimais depois da virgula para o numero informado
         public double BaseSalary { get; set; }
